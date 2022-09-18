@@ -1,6 +1,6 @@
-import PhaserLogo from '../objects/phaserLogo'
-import FpsText from '../objects/fpsText'
-import NoseCircle from '../objects/noseCircle'
+import PhaserLogo from '../sceneObjects/phaserLogo'
+import FpsText from '../sceneObjects/fpsText'
+import NoseCircle from '../sceneObjects/noseCircle'
 
 export default class MainScene extends Phaser.Scene {
   fpsText
