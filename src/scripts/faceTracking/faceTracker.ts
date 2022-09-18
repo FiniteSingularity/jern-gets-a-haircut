@@ -33,7 +33,9 @@ export class FaceTracker {
 
   private static instance: FaceTracker
 
-  private constructor() {}
+  private constructor() {
+    this.setupMediaPipe()
+  }
 
   public static getInstance(): FaceTracker {
     return FaceTracker.instance ? FaceTracker.instance : new FaceTracker()
