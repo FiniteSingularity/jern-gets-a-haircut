@@ -1,12 +1,13 @@
 import { Subscription } from 'rxjs'
 
-import { FaceTracker } from '../faceTracking/faceTracker'
+import { FaceFeatures, FaceTracker } from '../faceTracking/faceTracker'
 import Beard from '../sceneObjects/beard'
 import HeadHair from '../sceneObjects/headHair'
 import SoulPatch from '../sceneObjects/soulPatch'
 
 export default class Player extends Phaser.GameObjects.Group {
   faceTracker: FaceTracker
+  features: FaceFeatures
   subs = new Subscription()
   hair: HeadHair
   beard: Beard
@@ -22,11 +23,21 @@ export default class Player extends Phaser.GameObjects.Group {
 
     this.faceTracker = FaceTracker.getInstance()
     this.subs = this.faceTracker.faceFeatures$.subscribe(features => {
+      this.features = features
       if (features.faceFound) {
         this.hair.updatePosition(features.forehead)
         this.beard.updatePosition(features.jawline)
         this.soulPatch.updatePosition(features.soulPatch)
       }
     })
+  }
+
+  update() {
+    if (this.features.faceFound) {
+      this.hair.updatePosition(this.features.forehead)
+      this.beard.updatePosition(this.features.jawline)
+      this.soulPatch.updatePosition(this.features.soulPatch)
+      this.soulPatch.update()
+    }
   }
 }
