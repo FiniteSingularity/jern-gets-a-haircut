@@ -1,4 +1,4 @@
-export type EnemyFactory<EnemyType> = (scene: Phaser.Scene) => EnemyType;
+export type EnemyFactory<EnemyType> = (scene: Phaser.Scene, x: number, y:number) => EnemyType;
 
 export type EnemySpawnerConfig = {
     spawnMinX: number;
