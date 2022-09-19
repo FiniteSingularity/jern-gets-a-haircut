@@ -9,12 +9,14 @@ export interface FaceFeatures {
   faceFound: boolean
   forehead: NormalizedLandmark[]
   jawline: NormalizedLandmark[]
+  soulPatch: NormalizedLandmark[]
 }
 
 // Landmark point ids illustrated here:
 // https://raw.githubusercontent.com/rcsmit/python_scripts_rcsmit/master/extras/Gal_Gadot_by_Gage_Skidmore_4_5000x5921_annotated_white_letters.jpg
 const JAWLINE_POINTS = [172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397]
 const FOREHEAD_POINTS = [127, 162, 21, 54, 103, 67, 109, 10, 338, 297, 332, 284, 251, 389, 356]
+const SOUL_PATCH_POINTS = [83, 18, 200, 313]
 const NOSETIP_POINT = 4
 
 export class FaceTracker {
@@ -28,7 +30,8 @@ export class FaceTracker {
   private _faceFeatures = new BehaviorSubject<FaceFeatures>({
     faceFound: false,
     forehead: [],
-    jawline: []
+    jawline: [],
+    soulPatch: []
   })
 
   private static instance: FaceTracker
@@ -111,7 +114,8 @@ export class FaceTracker {
         this._faceFeatures.next({
           faceFound: true,
           forehead: FOREHEAD_POINTS.map(id => landmarks[id]),
-          jawline: JAWLINE_POINTS.map(id => landmarks[id])
+          jawline: JAWLINE_POINTS.map(id => landmarks[id]),
+          soulPatch: SOUL_PATCH_POINTS.map(id => landmarks[id])
         })
       }
     }

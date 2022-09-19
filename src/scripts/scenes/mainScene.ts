@@ -48,4 +48,8 @@ export default class MainScene extends Phaser.Scene {
     // this.enemySpawner.update();
 
   }
+
+  preload() {
+    this.load.image('black', 'assets/textures/black.png')
+  }
 }
