@@ -1,9 +1,9 @@
-import PhaserLogo from '../sceneObjects/phaserLogo'
 import FpsText from '../sceneObjects/fpsText'
 import NoseCircle from '../sceneObjects/noseCircle'
 import EnemySpawner from '../sceneObjects/enemySpawner';
 import Enemy from '../sceneObjects/enemy';
 import Player from '../player/player';
+import PhaserLogo from '../sceneObjects/phaserLogo';
 
 export default class MainScene extends Phaser.Scene {
   fpsText

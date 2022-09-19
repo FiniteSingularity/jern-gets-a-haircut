@@ -6,66 +6,48 @@ export default class SoulPatch extends Phaser.GameObjects.Mesh {
   constructor(scene, x, y) {
     super(scene, x, y, 'black')
     scene.add.existing(this)
-    const vertices = [-0.5, 0.5, 0, 0.5, 0, -0.5, 0.5, 0.5]
+    const vertices = [-0.5 * 1280, 0.5 * 720, 0, 0.5 * 720, 0, 0 * 720, 0.5 * 1280, 0.5 * 720]
 
     const uvs = [0, 0, 1, 0, 0, 1, 1, 1]
 
     const indices = [0, 2, 1, 2, 3, 1]
 
     this.addVertices(vertices, uvs, indices)
-    this.panZ(4.8)
+    this.hideCCW = false
+    this.setOrtho(this.width, this.height)
+  }
 
-    this.debug = this.scene.add.graphics()
-    this.setDebug(this.debug)
+  coordTransform(pt: NormalizedLandmark) {
+    // MESH COORDINATES:
+    // UPPER LEFT- -640, 360,
+    // MIDDLE- 0, 0
+    // BOT RIGHT- 640, -360
 
-    console.log(this.vertices)
+    // MEDIAPIPE COORDINATES:
+    // UPPER LEFT- 0.0, 0.0,
+    // MIDDLE- 0.5, 0.5,
+    // BOT RIGHT- 1.0, 1.0
+
+    // X: MP.x * this.width - this.width/2
+    //    (MP.x - 0.5) * this.width
+
+    // Y: -MP.y * this.height - this.hight/2
+    //    (-MP.y - 0.5) * this.height
+    return [(pt.x - 0.5) * this.width, (-pt.y + 0.5) * this.height]
   }
 
   updatePosition(soulPatchPoints: NormalizedLandmark[]) {
-    this.debug.clear()
-    this.debug.lineStyle(1, 0x00ff00)
+    const vertices = [
+      ...this.coordTransform(soulPatchPoints[0]),
+      ...this.coordTransform(soulPatchPoints[1]),
+      ...this.coordTransform(soulPatchPoints[2]),
+      ...this.coordTransform(soulPatchPoints[3])
+    ]
 
-    const vertices = [-0.5, 0.5, 0, 0.5, 0, -0.5, 0.5, 0.5]
+    console.log(vertices)
     const uvs = [0, 0, 1, 0, 0, 1, 1, 1]
     const indices = [0, 2, 1, 2, 3, 1]
-    // for (let i = 0; i < vertices.length / 2; i++) {
-    //   let cVertex = this.vertices[i]
-    //   cVertex.x = vertices[i * 2]
-    //   cVertex.y = vertices[i * 2 + 1]
-    // }
     this.clear()
     this.addVertices(vertices, uvs, indices)
-    this.panZ(4.8)
   }
-
-  // preUpdate() {
-  //   // if (soulPatchPoints.length === 0) {
-  //   //   return
-  //   // }
-  //   //this.clear()
-  //   // const vertices = [
-  //   //   soulPatchPoints[0].x,
-  //   //   soulPatchPoints[0].y,
-  //   //   soulPatchPoints[1].x,
-  //   //   soulPatchPoints[1].y,
-  //   //   soulPatchPoints[2].x,
-  //   //   soulPatchPoints[2].y,
-  //   //   soulPatchPoints[3].x,
-  //   //   soulPatchPoints[3].y
-  //   // ]
-  //   // const vertices = [-0.5, 0.5, 0, 0.5, 0, -0.5, 0.5, 0.5]
-  //   // const uvs = [0, 0, 1, 0, 0, 1, 1, 1]
-  //   // const indices = [0, 2, 1, 2, 3, 1]
-  //   // for (let i = 0; i < vertices.length / 2; i++) {
-  //   //   let cVertex = this.vertices[i]
-  //   //   cVertex.x = vertices[i * 2]
-  //   //   cVertex.y = vertices[i * 2 + 1]
-  //   // }
-  //   // let i = 0
-  //   // for (let vertex of this.vertices) {
-  //   //   vertex.x = vertices[i * 2]
-  //   //   vertex.y = vertices[i * 2 + 1]
-  //   //   i++
-  //   // }
-  // }
 }

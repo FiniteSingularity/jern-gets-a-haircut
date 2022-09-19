@@ -41,7 +41,10 @@ export class FaceTracker {
   }
 
   public static getInstance(): FaceTracker {
-    return FaceTracker.instance ? FaceTracker.instance : new FaceTracker()
+    if (!FaceTracker.instance) {
+      FaceTracker.instance = new FaceTracker()
+    }
+    return FaceTracker.instance
   }
 
   // Face Features observable (emits event whenever new face mesh data is obtained)
