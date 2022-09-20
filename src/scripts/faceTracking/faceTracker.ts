@@ -3,21 +3,18 @@ import { BehaviorSubject } from 'rxjs'
 import { Camera } from '@mediapipe/camera_utils'
 import { ControlPanel, InputImage, Rectangle, SourcePicker, StaticText } from '@mediapipe/control_utils'
 import { FaceMesh, NormalizedLandmark, Results } from '@mediapipe/face_mesh'
+import { CHINSTRAP_POINTS, FOREHEAD_POINTS, JAWLINE_POINTS, SOUL_PATCH_POINTS, STACHE_POINTS } from './faceFeatureMeshes'
 
 // Defines the landmark points added to the face mesh observable.
 export interface FaceFeatures {
   faceFound: boolean
   forehead: NormalizedLandmark[]
   jawline: NormalizedLandmark[]
+  chinstrap: NormalizedLandmark[]
   soulPatch: NormalizedLandmark[]
+  stache: NormalizedLandmark[]
 }
 
-// Landmark point ids illustrated here:
-// https://raw.githubusercontent.com/rcsmit/python_scripts_rcsmit/master/extras/Gal_Gadot_by_Gage_Skidmore_4_5000x5921_annotated_white_letters.jpg
-const JAWLINE_POINTS = [172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397]
-const FOREHEAD_POINTS = [127, 162, 21, 54, 103, 67, 109, 10, 338, 297, 332, 284, 251, 389, 356]
-const SOUL_PATCH_POINTS = [83, 18, 200, 313]
-const NOSETIP_POINT = 4
 
 export class FaceTracker {
   private videoElement: HTMLVideoElement
@@ -30,8 +27,10 @@ export class FaceTracker {
   private _faceFeatures = new BehaviorSubject<FaceFeatures>({
     faceFound: false,
     forehead: [],
+    chinstrap: [],
     jawline: [],
-    soulPatch: []
+    soulPatch: [],
+    stache: [],
   })
 
   private static instance: FaceTracker
@@ -118,7 +117,9 @@ export class FaceTracker {
           faceFound: true,
           forehead: FOREHEAD_POINTS.map(id => landmarks[id]),
           jawline: JAWLINE_POINTS.map(id => landmarks[id]),
-          soulPatch: SOUL_PATCH_POINTS.map(id => landmarks[id])
+          chinstrap: CHINSTRAP_POINTS.map(id => landmarks[id]),
+          soulPatch: SOUL_PATCH_POINTS.map(id => landmarks[id]),
+          stache: STACHE_POINTS.map(id => landmarks[id])
         })
       }
     }

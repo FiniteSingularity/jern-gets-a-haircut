@@ -6,13 +6,6 @@ export default class SoulPatch extends Phaser.GameObjects.Mesh {
   constructor(scene, x, y) {
     super(scene, x, y, 'black')
     scene.add.existing(this)
-    const vertices = [-0.5 * 1280, 0.5 * 720, 0, 0.5 * 720, 0, 0 * 720, 0.5 * 1280, 0.5 * 720]
-
-    const uvs = [0, 0, 1, 0, 0, 1, 1, 1]
-
-    const indices = [0, 2, 1, 2, 3, 1]
-
-    this.addVertices(vertices, uvs, indices)
     this.hideCCW = false
     this.setOrtho(this.width, this.height)
   }
@@ -44,7 +37,6 @@ export default class SoulPatch extends Phaser.GameObjects.Mesh {
       ...this.coordTransform(soulPatchPoints[3])
     ]
 
-    console.log(vertices)
     const uvs = [0, 0, 1, 0, 0, 1, 1, 1]
     const indices = [0, 2, 1, 2, 3, 1]
     this.clear()

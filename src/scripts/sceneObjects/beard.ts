@@ -1,13 +1,30 @@
-import { NormalizedLandmark } from '@mediapipe/face_mesh'
+import { FaceFeatures } from '../faceTracking/faceTracker'
+import ChinStrap from './chinStrap'
+import SoulPatch from './soulPatch'
+import Stache from './stache'
 
-export default class Beard extends Phaser.GameObjects.Ellipse {
-  constructor(scene, x, y) {
-    super(scene, x, y, 50, 50, 0x0000ff, 0.5)
+export default class Beard extends Phaser.GameObjects.Group {
+  soulPatch: SoulPatch
+  chinStrap: ChinStrap
+  stache: Stache
+
+  constructor(scene) {
+    super(scene)
     scene.add.existing(this)
+    this.soulPatch = new SoulPatch(scene, 640, 360)
+    this.add(this.soulPatch, true)
+    this.chinStrap = new ChinStrap(scene, 640, 360)
+    this.add(this.chinStrap, true)
+    this.stache = new Stache(scene, 640, 360)
+    this.add(this.stache, true)
   }
 
-  updatePosition(jawline: NormalizedLandmark[]) {
-    this.setX(jawline[6].x * this.scene.cameras.main.width)
-    this.setY(jawline[6].y * this.scene.cameras.main.height)
+  updatePosition(features: FaceFeatures) {
+    if (features.faceFound) {
+      //this.beard.updatePosition(features.jawline)
+      this.soulPatch.updatePosition(features.soulPatch)
+      this.chinStrap.updatePosition(features.chinstrap)
+      this.stache.updatePosition(features.stache)
+    }
   }
 }
