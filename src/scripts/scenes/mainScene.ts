@@ -8,6 +8,7 @@ import PhaserLogo from '../sceneObjects/phaserLogo';
 export default class MainScene extends Phaser.Scene {
   fpsText
   player: Player
+  logo: PhaserLogo
 
   private enemySpawner!: EnemySpawner<Enemy>
   private lastSpawnTime: number = 0
@@ -20,8 +21,9 @@ export default class MainScene extends Phaser.Scene {
   create() {
     // @todo inject me
     this.enemySpawner = new EnemySpawner(Enemy.prototype, this)
+    this.player = new Player(this)
     this.fpsText = new FpsText(this)
-    const logo = new PhaserLogo(this, this.cameras.main.width / 2, 0)
+    this.logo = new PhaserLogo(this, this.cameras.main.width / 2, 0)
     const noseCircle = new NoseCircle(this, 0, 0)
 
     this.enemySpawner.setTarget(noseCircle)
@@ -29,7 +31,7 @@ export default class MainScene extends Phaser.Scene {
     this.enemySpawner.init()
 
     this.player = new Player(this)
-
+    this.player.beard.addPhysicsCollsion(this.logo)
     // display the Phaser.VERSION
     this.add
       .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
