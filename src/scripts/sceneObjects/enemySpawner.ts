@@ -16,10 +16,10 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
     protected config: EnemySpawnerConfig = {
         spawnMinX: 0,
         spawnMaxX: 0,
-        spawnMinY: -128,
-        spawnMaxY: -128,
+        spawnMinY: 0,
+        spawnMaxY: 640,
         accellMin: 50,
-        accellMax: 100
+        accellMax: 600
     };
 
     protected target: Phaser.GameObjects.Components.Transform;
@@ -46,12 +46,17 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
         // pre-fill our pool
         this.config.spawnMaxX = this.scene.cameras.main.getBounds().right;
         for (let i = 0; i < this.pool.maxSize; i++) {
-            this.pool.create(
+            const newEnemy = this.pool.create(
                 undefined,
                 undefined,
                 undefined,
                 undefined,
                 undefined, false);
+            this.scene.physics.add.collider(
+                newEnemy,
+                this.pool.getChildren(),
+                (a, b) => { console.log('COLLISION'); }
+            );
         }
     }
 
@@ -67,10 +72,12 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
         if (enemy === null) {
             return null;
         }
-
+        enemy.reset()
+        enemy.setX(spawnPosition.x);
+        enemy.setY(spawnPosition.y);
+        
         this.setTargetAndMotion(enemy);
 
-        console.log('current count', this.pool.children.size);
         enemy.active = true;
 
         return enemy;
@@ -82,11 +89,15 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
 
     protected getNextSpawnPosition(): Math.Vector2 {
         // @todo make this better, and/or inject strategies for it so that they can spawn in patterns
+        const axis = Math.Between(-1, 1)
+        // const y = Math.Between(0, 720/2) * axis;
+        // const x = Math.Between(0, 1280) 
+        const x = axis === 0 ? Math.Between(0, 1280) :
+                  axis === -1 ? 0 :
+                  1280;
+        const y = axis * Math.Between(0, 720 / 2);
 
-        return new Math.Vector2(
-            Math.Between(this.config.spawnMinX, this.config.spawnMaxX),
-            Math.Between(this.config.spawnMinY, this.config.spawnMaxY)
-        );
+        return new Math.Vector2(x,y);
     }
 
 

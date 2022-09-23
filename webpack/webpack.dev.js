@@ -6,7 +6,8 @@ const dev = {
   stats: 'errors-warnings',
   devtool: 'eval',
   devServer: {
-    open: true
+    open: true,
+    port: 8081
   }
 }
 
