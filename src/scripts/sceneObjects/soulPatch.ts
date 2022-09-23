@@ -13,6 +13,14 @@ export default class SoulPatch extends Phaser.GameObjects.Group {
     this._soulPatchCollider.setCircle(8)
   }
 
+  get mesh() {
+    return this._soulPatchMesh
+  }
+
+  get target() {
+    return this._soulPatchCollider
+  }
+
   updatePosition(soulPatchPoints: NormalizedLandmark[]) {
     this._soulPatchMesh.updatePosition(soulPatchPoints)
     this._soulPatchCollider.setX(soulPatchPoints[1].x * this.scene.cameras.main.width)
