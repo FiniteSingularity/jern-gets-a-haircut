@@ -11,7 +11,7 @@ export default class MainScene extends Phaser.Scene {
 
   private enemySpawner!: EnemySpawner<Enemy>;
   private lastSpawnTime: number = 0;
-  private spawnInterval: number = 1000;
+  private spawnInterval: number = 500;
 
   constructor() {
     super({ key: 'MainScene' });
@@ -21,16 +21,13 @@ export default class MainScene extends Phaser.Scene {
     // @todo inject me
     this.enemySpawner = new EnemySpawner(Enemy.prototype, this);
 
-    this.logo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
-
     this.player = new Player(this);
-    this.player.beard.addPhysicsCollsion(this.logo);
 
     this.fpsText = new FpsText(this);
 
-    const soulPatch = this.player.beard.soulPatch.target;
+    const foreheadTarget = this.player.foreheadTarget;
 
-    this.enemySpawner.setTarget(soulPatch);
+    this.enemySpawner.setTarget(foreheadTarget);
     this.add.existing(this.enemySpawner);
     this.enemySpawner.init();
 

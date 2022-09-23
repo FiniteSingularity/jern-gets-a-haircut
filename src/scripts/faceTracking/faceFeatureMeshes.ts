@@ -2,9 +2,11 @@
 // https://raw.githubusercontent.com/rcsmit/python_scripts_rcsmit/master/extras/Gal_Gadot_by_Gage_Skidmore_4_5000x5921_annotated_white_letters.jpg
 export const JAWLINE_POINTS = [172, 136, 150, 149, 176, 148, 152, 377, 400, 378, 379, 365, 397]
 
-export const FOREHEAD_POINTS = [127, 162, 21, 54, 103, 67, 109, 10, 338, 297, 332, 284, 251, 389, 356]
+export const FOREHEAD_POINTS = [127, 162, 21,  54,  103, 67,  109, 10,
+                                338, 297, 332, 284, 251, 389, 356]
 export const SOUL_PATCH_POINTS = [83, 18, 200, 313]
 export const NOSETIP_POINT = 4
+export const MIDDLE_FOREHEAD = 10
 
 // Define the mesh for the chin strap
 export const CHINSTRAP_POINTS = [
