@@ -1,18 +1,32 @@
 import PhaserLogo from '../sceneObjects/phaserLogo'
 import FpsText from '../sceneObjects/fpsText'
 import NoseCircle from '../sceneObjects/noseCircle'
+import EnemySpawner from '../sceneObjects/enemySpawner';
+import Enemy from '../sceneObjects/enemy';
 
 export default class MainScene extends Phaser.Scene {
-  fpsText
+  fpsText;
+
+  private enemySpawner!: EnemySpawner<Enemy>;
+  private lastSpawnTime: number = 0;
+  private spawnInterval: number = 1000;
 
   constructor() {
-    super({ key: 'MainScene' })
+    super({ key: 'MainScene' });
   }
 
   create() {
-    new PhaserLogo(this, this.cameras.main.width / 2, 0)
-    new NoseCircle(this, 0, 0)
-    this.fpsText = new FpsText(this)
+    // @todo inject me
+    this.enemySpawner = new EnemySpawner(Enemy.prototype, this);
+    this.fpsText = new FpsText(this);
+
+    const logo = new PhaserLogo(this, this.cameras.main.width / 2, 0);
+    const noseCircle = new NoseCircle(this, 0, 0);
+
+    this.enemySpawner.setTarget(noseCircle);
+    this.add.existing(this.enemySpawner);
+    this.enemySpawner.init();
+
 
     // display the Phaser.VERSION
     this.add
@@ -23,7 +37,15 @@ export default class MainScene extends Phaser.Scene {
       .setOrigin(1, 0)
   }
 
-  update() {
-    this.fpsText.update()
+  update(time: number, delta: number) {
+    this.fpsText.update();
+
+    if (this.lastSpawnTime < time) {
+      this.enemySpawner.spawnEnemy();
+      this.lastSpawnTime = time + this.spawnInterval;
+    }
+
+    // this.enemySpawner.update();
+
   }
 }
