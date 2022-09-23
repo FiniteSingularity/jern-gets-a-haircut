@@ -2,21 +2,22 @@ import { NormalizedLandmark } from '@mediapipe/face_mesh'
 
 export default class SoulPatch extends Phaser.GameObjects.Group {
   _soulPatchMesh: SoulPatchMesh
-  _soulPatchCollider: Phaser.Types.Physics.Arcade.SpriteWithDynamicBody
+  _soulPatchCollider: Phaser.Types.Physics.Arcade.SpriteWithStaticBody
   constructor(scene: Phaser.Scene, x, y) {
     console.log('Soul Patch Constructor')
     super(scene)
     this._soulPatchMesh = new SoulPatchMesh(scene, x, y)
     this.add(this._soulPatchMesh, true)
-    this._soulPatchCollider = scene.physics.add.sprite(0, 0, 'sp')
-    //this._soulPatchCollider.setImmovable(true)
-    this._soulPatchCollider.setCircle(10)
+    this._soulPatchCollider = scene.physics.add.staticSprite(0, 0, 'sp')
+    this._soulPatchCollider.setDebug(false, false, 0x00ff00)
+    this._soulPatchCollider.setCircle(8)
   }
 
   updatePosition(soulPatchPoints: NormalizedLandmark[]) {
     this._soulPatchMesh.updatePosition(soulPatchPoints)
     this._soulPatchCollider.setX(soulPatchPoints[1].x * this.scene.cameras.main.width)
     this._soulPatchCollider.setY(soulPatchPoints[1].y * this.scene.cameras.main.height)
+    this._soulPatchCollider.refreshBody()
   }
 }
 
