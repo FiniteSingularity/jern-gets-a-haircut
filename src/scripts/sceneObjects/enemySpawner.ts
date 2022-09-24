@@ -53,10 +53,6 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
         newEnemy,
         this.pool.getChildren(),
       );
-      this.scene.physics.overlap(target, newEnemy, (a, b) => {
-        console.log('Gotcha!');
-        b.active = false;
-      })
     }
   }
 

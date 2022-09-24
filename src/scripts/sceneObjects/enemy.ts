@@ -34,7 +34,6 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
                 dist * (target.x - this.x)/delta + this.x,
                 dist * (target.y - this.y)/delta + this.y
             );
-
         }
     }
 
@@ -52,28 +51,34 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
             this.active = false;
             return;
         }
-        // const targetRadius = (this.scene as MainScene).player.foreheadTarget.displayWidth/2.0;
-        // const radius = this.displayWidth/2.0;
-        // const dist = Phaser.Math.Distance.Between(
-        //   (this.scene as MainScene).player.foreheadTarget.x,
-        //   (this.scene as MainScene).player.foreheadTarget.y,
-        //   this.x,
-        //   this.y
-        // );
+        const targetRadius = (this.scene as MainScene).player.foreheadTarget.displayWidth/2.0;
+        const radius = this.displayWidth/2.0;
+        const dist = Phaser.Math.Distance.Between(
+          (this.scene as MainScene).player.foreheadTarget.x,
+          (this.scene as MainScene).player.foreheadTarget.y,
+          this.x,
+          this.y
+        );
 
-        // if(dist < targetRadius+radius) {
-        //     console.log('GOTCHA!');
-        //     this.active = false;
-        //     return;
-        // }
+        if(dist < targetRadius+radius) {
+            console.log('GOTCHA!');
+            this.active = false;
+            // Move the sprite WAY off screen so that momentum
+            // doesnt carry it past the target.  Thanks to
+            // Dendenguy for this working perfectly idea!
+            this.setX(-1000);
+            this.setY(-1000);
+            (this.scene as MainScene).player.headHair.addHair();
+            return;
+        }
 
         this.scene.physics.accelerateTo(
-          this,
-          this.targetPosition.x,
-          this.targetPosition.y,
-          this._accel,
-          this.config.maxSpeed,
-          this.config.maxSpeed
+            this,
+            this.targetPosition.x,
+            this.targetPosition.y,
+            this._accel,
+            this.config.maxSpeed,
+            this.config.maxSpeed
         );
     }
 }

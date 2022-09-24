@@ -6,6 +6,7 @@ export default class PreloadScene extends Phaser.Scene {
   preload() {
     this.load.image('phaser-logo', 'assets/img/phaser-logo.png');
     this.load.image('target', 'assets/img/target.png');
+    this.load.image('rope-hair', 'assets/img/rope-hair-texture.png');
   }
 
   create() {
