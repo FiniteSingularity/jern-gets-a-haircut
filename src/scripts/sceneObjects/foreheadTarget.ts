@@ -1,10 +1,11 @@
 import { FaceFeatures } from "../faceTracking/faceTracker";
 
-export default class ForeheadTarget extends Phaser.GameObjects.Ellipse {
+export default class ForeheadTarget extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 100, 100, 0x0000ff, 0.5);
+    super(scene, x, y, 'target');
     scene.add.existing(this);
-    //scene.physics.add.existing(this)
+    this.setSize(72, 72);
+    this.setDisplaySize(72, 72);
   }
 
   updatePosition(features: FaceFeatures) {
