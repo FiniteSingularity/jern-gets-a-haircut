@@ -29,15 +29,8 @@ export default class MainScene extends Phaser.Scene {
 
     this.enemySpawner.setTarget(foreheadTarget);
     this.add.existing(this.enemySpawner);
-    this.enemySpawner.init();
-
-    // display the Phaser.VERSION
-    this.add
-      .text(this.cameras.main.width - 15, 15, `Phaser v${Phaser.VERSION}`, {
-        color: '#000000',
-        fontSize: '24px',
-      })
-      .setOrigin(1, 0);
+    setTimeout(() => {this.enemySpawner.init(foreheadTarget);}, 10000);
+    
   }
 
   update(time: number, delta: number) {

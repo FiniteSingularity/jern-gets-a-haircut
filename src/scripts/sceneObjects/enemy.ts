@@ -1,11 +1,11 @@
 import { GameObjects, Math, Physics } from "phaser";
 import { EnemyConfig } from "../lib/types/enemy";
 import IEnemy from "../lib/interfaces/IEnemy";
+import MainScene from "../scenes/mainScene";
 
 export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
     protected targetPosition?: Math.Vector2;
     protected _accel: any;
-    
 
     protected config: EnemyConfig= {
         maxSpeed: 1000,
@@ -45,15 +45,27 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
     }
 
     update() {
-
         if (!this.targetPosition) {
             return;
         }
-
         if((this.x < -100 || this.x > 1390) || (this.y > 830)) {
             this.active = false;
-            return
-        }        
+            return;
+        }
+        // const targetRadius = (this.scene as MainScene).player.foreheadTarget.displayWidth/2.0;
+        // const radius = this.displayWidth/2.0;
+        // const dist = Phaser.Math.Distance.Between(
+        //   (this.scene as MainScene).player.foreheadTarget.x,
+        //   (this.scene as MainScene).player.foreheadTarget.y,
+        //   this.x,
+        //   this.y
+        // );
+
+        // if(dist < targetRadius+radius) {
+        //     console.log('GOTCHA!');
+        //     this.active = false;
+        //     return;
+        // }
 
         this.scene.physics.accelerateTo(
           this,
