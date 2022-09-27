@@ -349,10 +349,22 @@
 
       .canvas-container {
         display: flex;
+        position: absolute;
+        top: 0px;
+        left: 0px;
         height: 100%;
         width: 100%;
         justify-content: center;
         align-items: center;
+      }
+
+      .canvas-container-preview {
+        top: 200px;
+        left: 50px;
+        width: 250px;
+        height: 150px;
+        border: 4px solid #FFFFFF;
+        border-radius: 6px;
       }
 
       .cover {
@@ -430,6 +442,19 @@
         right: 0;
         z-index: 10000;
       }
+
+      #start-screen {
+        position: absolute;
+        left: 350px;
+        top: 0px;
+        right: 0;
+        bottom: 0;
+        z-index: 10001;
+      }
+
+      .hide {
+        display: none;
+      }
     </style>
 
     <noscript>Please enable javascript to continue using this application.</noscript>
@@ -445,12 +470,17 @@
   </head>
   <body>
     <div id="phaser-game"></div>
+    <div id="start-screen">
+      <h1>Start Scene!!!</h1>
+      <p>Lore snippet: Competitive Jernjam players risk getting carpal tunnel in the neck from prolonged playtime so new players are advised to play in shorter sprints with breaks</p>
+      <button id="start-button">Start Game!</button>
+    </div>
     <div class="container">
       <video id="input-video" class="input_video selfie"></video>
-      <div class="canvas-container">
+      <div id="canvas-container" class="canvas-container">
         <canvas id="output-canvas" class="output_canvas" width="1280px" height="720px"></canvas>
       </div>
-      <div class="loading">
+      <div class="loading" style="display: none">
         <div class="spinner"></div>
         <div class="message">Loading</div>
       </div>

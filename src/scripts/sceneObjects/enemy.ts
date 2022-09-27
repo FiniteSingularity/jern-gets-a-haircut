@@ -61,14 +61,13 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
         );
 
         if(dist < targetRadius+radius) {
-            console.log('GOTCHA!');
             this.active = false;
             // Move the sprite WAY off screen so that momentum
             // doesnt carry it past the target.  Thanks to
             // Dendenguy for this working perfectly idea!
             this.setX(-1000);
             this.setY(-1000);
-            (this.scene as MainScene).player.headHair.addHair();
+            (this.scene as MainScene).player.addHit(this);
             return;
         }
 
