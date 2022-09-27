@@ -43,5 +43,7 @@ export default class Player extends Phaser.GameObjects.Group {
     return this._headHair;
   }
 
-  update() {}
+  update() {
+    this._headHair.update();
+  }
 }

@@ -12,7 +12,7 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
     }
 
     constructor(scene: Phaser.Scene, x: number, y: number ) {
-        super(scene, x, y, 'phaser-logo');
+        super(scene, x, y, 'moon-snail');
         scene.physics.add.existing(this);
         this.setSize(96, 96);
         this.setDisplaySize(64, 64);
