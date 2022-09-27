@@ -37,6 +37,7 @@ export class FaceTracker {
   private camera: Camera;
   private controls: ControlPanel;
   private gameContainerElement: HTMLDivElement;
+  private _freeze = false;
   private _faceFeatures = new BehaviorSubject<FaceFeatures>({
     faceFound: false,
     forehead: [],
@@ -108,6 +109,9 @@ export class FaceTracker {
         new StaticText({ title: 'Select Webcam' }),
         new SourcePicker({
           onFrame: async (input: InputImage, size: Rectangle) => {
+            if (this._freeze) {
+              return;
+            }
             const aspect = size.height / size.width;
             let width: number, height: number;
             if (window.innerWidth > window.innerHeight) {
@@ -129,15 +133,29 @@ export class FaceTracker {
   setFullScreen() {
     this.canvasContainerElement.classList.remove('canvas-container-preview');
     this.gameContainerElement.classList.remove('start-screen');
+    this.controlsElement.classList.add('hide');
   }
 
   setPreview() {
     this.canvasContainerElement.classList.add('canvas-container-preview');
     this.gameContainerElement.classList.add('start-screen');
+    this.controlsElement.classList.remove('hide');
+  }
+
+  freeze() {
+    this._freeze = true;
+  }
+
+  unfreeze() {
+    this._freeze = false;
   }
 
   onResults = (results: Results) => {
+    if (this._freeze) {
+      return;
+    }
     document.body.classList.add('loaded');
+
     // redraw the camera frame in the camera canvas element
     this.canvasCtx.save();
     this.canvasCtx.clearRect(

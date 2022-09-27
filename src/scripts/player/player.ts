@@ -1,4 +1,3 @@
-import { GameObjects, Physics } from 'phaser';
 import { Subscription } from 'rxjs';
 
 import { FaceFeatures, FaceTracker } from '../faceTracking/faceTracker';
@@ -50,8 +49,19 @@ export default class Player extends Phaser.GameObjects.Group {
     return this._headHair;
   }
 
+  freeze() {
+    this.faceTracker.freeze();
+  }
+
+  unfreeze() {
+    this.faceTracker.unfreeze();
+  }
+
   addHit(enenmy: IEnemy) {
     this._scoreService.incrementHit(1);
+    this._headHair.addHair();
+    this._headHair.addHair();
+    this._headHair.addHair();
     this._headHair.addHair();
   }
 

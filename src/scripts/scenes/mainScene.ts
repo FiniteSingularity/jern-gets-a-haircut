@@ -60,6 +60,7 @@ export default class MainScene extends Phaser.Scene {
 
   endGame() {
     this.scene.pause();
+    this.player.freeze();
   }
 
   update(time: number, delta: number) {
