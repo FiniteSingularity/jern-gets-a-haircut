@@ -1,6 +1,6 @@
 import { Subscription } from 'rxjs';
 import scoreService from '../lib/services/scoreService';
-
+import { secondsToElapsedTime } from '../lib/utils';
 export default class ElapsedTimeText extends Phaser.GameObjects.Text {
   scoreService = scoreService;
   subs = new Subscription();
@@ -10,12 +10,7 @@ export default class ElapsedTimeText extends Phaser.GameObjects.Text {
     this.setOrigin(0);
     this.subs.add(
       this.scoreService.score$.subscribe(score => {
-        const secondsElapsed = Math.floor(score.secondsElapsed/10);
-        const minutes = Math.floor(secondsElapsed/6000);
-        const remaining = secondsElapsed % 6000;
-        const seconds = Math.floor(remaining/100);
-        const hundredths = remaining % 100;
-        this.setText(`Time: ${minutes}:${seconds.toString().padStart(2,"0")}.${hundredths.toString().padStart(2,"0")}`);
+        this.setText('Time: ' + secondsToElapsedTime(score.secondsElapsed));
       })
     );
   }

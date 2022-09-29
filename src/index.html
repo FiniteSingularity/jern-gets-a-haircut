@@ -33,6 +33,7 @@
         height: 100%;
         margin: 0;
         background-color: #000000;
+        font-family: sans-serif;
       }
       .control-panel-entry {
         width: 250px;
@@ -452,7 +453,6 @@
         z-index: 10001;
         color: #FFFFFF;
         font-size: 24px;
-        font-family: sans-serif;
       }
       h1 {
         margin-left: 20px;
@@ -466,6 +466,34 @@
       button {
         font-size: 36px;
         padding: 10px;
+      }
+      #game-over {
+        position: absolute;
+        z-index: 11000;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: grayscale(1) blur(4px);
+        color: #FFFFFF;
+        font-size: 36px;
+      }
+
+      .game-over-message {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .outcome {
+        margin: 32px;
       }
     </style>
 
@@ -497,8 +525,8 @@
       </p>
       <p>As Jern emerged from the barber shop, he saw a grey flash out of the corner of his eye.
          In the bink of an eye, Lasbatuff himself jumped from behind a wheelie bin, and slapped
-         a target shaped sticker on Jern's Forehead.  The sticker contained an irresistable attractant
-         to moon snails, and as quickly as he had appeared, Lasbatuff vanished.  Soon on the horizon,
+         a target shaped sticker on Jern's Forehead.  The sticker contained irresistable moon snail
+         pheromones, and as quickly as he had appeared, Lasbatuff vanished.  Soon on the horizon,
          Jern could see the oncoming hoard of Moon Snails.
       </p>
       <p>
@@ -510,7 +538,35 @@
          You are now Jern, beard and all!  Your task is to dodge the moon snails for as long as you can.
       </p>
       <p>WARNING!!! Competitive Jern Gets a Haircut players risk getting carpal tunnel in the neck from prolonged playtime so new players are advised to play in shorter sprints with breaks</p>
+      <p style="font-size:8px">The fin(it)e print: FiniteSingularity can not be held responsible for any Jern Gets a Haircut related injuries, neck or otherwise.</p>
+      <p>BANNER AD FOR MOON SNAIL PHERMONES ON AMOONZON.COM</p>
       <button id="start-button">Start Game!</button>
+    </div>
+    <div id="game-over" class="hide">
+      <div class="game-over-message">
+        <h1 class="game-over-title">GAME OVER</h1>
+        <div class="outcome">You managed to dodge the moon snails for <span id='dodge-time'></span>.</div>
+        <div class="outcome hide">Unfortunately, the Moon King gained infinite power, and the world was lost.</div>
+        <div class="outcome hide">You totally kicked the Moon King's butt.  He slinked off to his crumbling layer, but something tells you, he'll be back again.</div>
+        <div class="outcome hide">The moon king's power has returned, and your hair is too long for proper care.</div>
+        <div class="outcome hide">The snail serum has seeped into your mind and your judgment is clouded, you have joined the moon king in his evil plans... to recover your judgement, wait for JGAH 2.</div>
+        <div class="outcome hide">You win! oh wait... no you didn't.</div>
+        <div class="outcome hide">You've got a little snail juice on your forhead Jern. Might want to wipe that off before the Moon King gets here.</div>
+        <div class="outcome hide">You find out Lasbatuff is your long lost brother, you embrace your new hair and newfound family member.</div>
+        <div class="outcome hide">You've saved the world from the evil grasp of the Moon king, you are awarded a $5 off your next haircut coupon to be redeemd at Amoonzon.com.</div>
+        <div class="outcome hide">the moon snails have overcome their desire for the pheromone and notice they are being misused. They have unionized and demanded higher moonimum wage from Lasbatuff, you and the world are safe... For Now</div>
+        <div class="outcome hide">The barber stepped out of his shop to hand you the wallet you forget. unbenounced to all he was wearing Snail By D'ore and the snails were redirected to his scent, escape while you can.</div>
+        <div class="outcome hide">The moon king's merger with Mooncrasoft comes through, he realizes he now has already taken over the world and leaves. you are left to fend against the snails, but with the target no longer being charged by Lasbutuff, they eventually gobble up the pheromone and lose interest.</div>
+        <div class="outcome hide">The Moon King realized that, much like the economy, his hairline was in a recession, and relocated to Saturn.</div>
+        <div class="outcome hide">Suddenly a woman's voice calls "Lasbutuff it's time for dinner" You hear him say "But Mom" and she says, "Did you take my pheromone puff?" He yells "No" Grabs the target and runs toward the sound of the woman's voice.</div>
+        <div class="outcome hide">Oh No! There have never been this many snails in one place, the serum is overpowering and the hair becomes sentient, it extricates itself from your skull and attacks Lasbutuff, his plans are foiled, but now... beware the hair.</div>
+        <div class="outcome hide">The Moon King taunts you, "business in the front, party in the back", and you crumble under the glare of the surrounding crowd mocking your new mullet.</div>
+        <div class="outcome hide">You take a step forward to escape, but accidentally step on an incoming snail, you are overcome with grief and then soon after overcome with snail serum, your hair grows so long it covers you and the snail. Lasbutuff is triumphant.</div>
+        <div class="outcome hide">You have an undiagnosed allergy to snails that makes your nose swell, you surrender to The Moon King, pledging to never cut your hair again so that you can forever preserve your handsome countenance.</div>
+        <div class="outcome hide">And The moon king's scientist zips by on an electric unicycle dousing you with synthesized snail pheromone, all hope is lost as you see the power glow emminate from Lasbutuff's fingertips, he places you under a spell of sleep and your hair grows for the rest of eternity or until you are awakened by true loves first kiss.</div>
+        <div class="outcome hide">The Moon King looks you over, visibly winces, and offers you an extra large paper bag with eye holes cut out.</div>
+        <button onClick="window.location.reload();">Continue</button>
+      </div>
     </div>
     <div class="container">
       <video id="input-video" class="input_video selfie"></video>

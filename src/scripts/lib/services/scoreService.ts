@@ -1,4 +1,4 @@
-import { BehaviorSubject, timer } from "rxjs";
+import { BehaviorSubject } from "rxjs";
 
 export interface Score {
   hits: number;

@@ -6,6 +6,7 @@ import MainScene from "../scenes/mainScene";
 export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
     protected targetPosition?: Math.Vector2;
     protected _accel: any;
+    protected _shielded = false;
 
     protected config: EnemyConfig= {
         maxSpeed: 1000,
@@ -17,11 +18,12 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
         this.setSize(96, 96);
         this.setDisplaySize(64, 64);
         this.setBounce(3, 3);
-        
+        console.log('Construct Sprite', this);
     }
 
     reset() {
-        this.setVelocity(0.0, 0.0)
+        this.setVelocity(0.0, 0.0);
+        this._shielded = false;
     }
 
     setTarget(target: GameObjects.Components.Transform) {
@@ -44,31 +46,58 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
     }
 
     update() {
+
         if (!this.targetPosition) {
             return;
         }
-        if((this.x < -100 || this.x > 1390) || (this.y > 830)) {
-            this.active = false;
+        if((this.x < -100 || this.x > 1390) || (this.y < -250 || this.y > 830)) {
+            this.setActive(false);
+            this.setVisible(false);
+            this.setInteractive(false);
             return;
         }
-        const targetRadius = (this.scene as MainScene).player.foreheadTarget.displayWidth/2.0;
-        const radius = this.displayWidth/2.0;
-        const dist = Phaser.Math.Distance.Between(
-          (this.scene as MainScene).player.foreheadTarget.x,
-          (this.scene as MainScene).player.foreheadTarget.y,
-          this.x,
-          this.y
-        );
 
-        if(dist < targetRadius+radius) {
-            this.active = false;
-            // Move the sprite WAY off screen so that momentum
-            // doesnt carry it past the target.  Thanks to
-            // Dendenguy for this working perfectly idea!
-            this.setX(-1000);
-            this.setY(-1000);
-            (this.scene as MainScene).player.addHit(this);
+        if (this._shielded) {
             return;
+        }
+
+        if((this.scene as MainScene).player.shieldUp) {
+            const shieldRadius = (this.scene as MainScene).player.targetShield.displayWidth/2.0;
+            const radius = this.displayWidth / 2.0;
+            const dist = Phaser.Math.Distance.Between(
+                (this.scene as MainScene).player.foreheadTarget.x,
+                (this.scene as MainScene).player.foreheadTarget.y,
+                this.x,
+                this.y
+            );
+            if (dist < shieldRadius + radius) {
+                this.setVelocityX(-5.0*this.body.velocity.x);
+                this.setVelocityY(-5.0*this.body.velocity.y);
+                this.setAcceleration(0.0, 0.0);
+                this._shielded = true;
+                (this.scene as MainScene).player.shieldHit();
+            }
+        } else {
+            const targetRadius =
+            (this.scene as MainScene).player.foreheadTarget.displayWidth / 2.0;
+            const radius = this.displayWidth / 2.0;
+            const dist = Phaser.Math.Distance.Between(
+                (this.scene as MainScene).player.foreheadTarget.x,
+                (this.scene as MainScene).player.foreheadTarget.y,
+                this.x,
+                this.y
+            );
+
+            if (dist < targetRadius + radius) {
+                this.active = false;
+                // Move the sprite WAY off screen so that momentum
+                // doesnt carry it past the target.  Thanks to
+                // Dendenguy for this working perfectly idea!
+                this.setX(-1000);
+                this.setY(-1000);
+                (this.scene as MainScene).player.addHit(this);
+                return;
+            }
         }
 
         this.scene.physics.accelerateTo(

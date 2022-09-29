@@ -29,7 +29,6 @@ export default class HeadHair extends Phaser.GameObjects.Container {
   }
 
   update() {
-    console.log('Update Hair');
     this._hairs.forEach(hair => hair.update());
   }
 

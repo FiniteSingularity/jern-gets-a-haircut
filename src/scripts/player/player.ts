@@ -6,6 +6,7 @@ import scoreService from '../lib/services/scoreService';
 import Beard from '../sceneObjects/beard';
 import ForeheadTarget from '../sceneObjects/foreheadTarget';
 import HeadHair from '../sceneObjects/headHair';
+import TargetShield from '../sceneObjects/targetShield';
 
 export default class Player extends Phaser.GameObjects.Group {
   faceTracker: FaceTracker;
@@ -14,13 +15,16 @@ export default class Player extends Phaser.GameObjects.Group {
   private _beard: Beard; // Game group object that represents beard parts
   private _foreheadTarget: ForeheadTarget;
   private _headHair: HeadHair;
+  private _targetShield: TargetShield;
   private _hitCount = 0;
   private _scoreService = scoreService;
+  private _shieldStrength = 0;
 
   constructor(scene) {
     super(scene);
     this._beard = new Beard(scene);
     this._foreheadTarget = new ForeheadTarget(scene, 0, 0);
+    this._targetShield = new TargetShield(scene, 0, 0);
     this._headHair = new HeadHair(scene, 0, 0);
 
     this.faceTracker = FaceTracker.getInstance();
@@ -32,9 +36,13 @@ export default class Player extends Phaser.GameObjects.Group {
           this._beard.updatePosition(features);
           this._foreheadTarget.updatePosition(features);
           this._headHair.updatePosition(features);
+          this._targetShield.updatePosition(features);
         }
       })
     );
+    setTimeout(() => {
+      this.shieldOn();
+    }, 5000);
   }
 
   get beard() {
@@ -47,6 +55,22 @@ export default class Player extends Phaser.GameObjects.Group {
 
   get headHair() {
     return this._headHair;
+  }
+
+  get targetShield() {
+    return this._targetShield;
+  }
+
+  get shieldUp() {
+    return this._shieldStrength > 0;
+  }
+
+  shieldOn() {
+    this._shieldStrength = 5;
+  }
+
+  shieldHit() {
+    this._shieldStrength--;
   }
 
   freeze() {
@@ -67,5 +91,6 @@ export default class Player extends Phaser.GameObjects.Group {
 
   update() {
     this._headHair.update();
+    this._targetShield.updateShield(this._shieldStrength > 0);
   }
 }

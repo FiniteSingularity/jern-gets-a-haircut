@@ -23,6 +23,7 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
 
   protected target: Phaser.GameObjects.Components.Transform;
   protected pool: Phaser.GameObjects.Group;
+  protected initialized = false;
 
   constructor(protected readonly enemyClass: EnemyType, scene: Phaser.Scene) {
     super(scene, 'EnemySpawner');
@@ -39,6 +40,7 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
 
   init(target: Phaser.GameObjects.Sprite) {
     // pre-fill our pool
+
     this.config.spawnMaxX = this.scene.cameras.main.getBounds().right;
     for (let i = 0; i < this.pool.maxSize; i++) {
       const newEnemy = this.pool.create(
@@ -49,11 +51,15 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
         undefined,
         false
       );
+      newEnemy.setActive(false);
+      newEnemy.setVisible(false);
+      newEnemy.removeInteractive();
       this.scene.physics.add.collider(
         newEnemy,
         this.pool.getChildren(),
       );
     }
+    this.initialized = true;
   }
 
   // @todo setter instead?
@@ -62,6 +68,9 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
   }
 
   spawnEnemy(): EnemyType | null {
+    if(!this.initialized) {
+      return null;
+    }
     const spawnPosition = this.getNextSpawnPosition();
     const enemy = this.pool.getFirstDead(
       false,
@@ -78,7 +87,11 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
 
     this.setTargetAndMotion(enemy);
 
-    enemy.active = true;
+    //enemy.active = true;
+
+    enemy.setActive(true);
+    enemy.setVisible(true);
+    enemy.setInteractive(true);
 
     return enemy;
   }
