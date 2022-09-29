@@ -10,7 +10,7 @@ import { Subscription } from 'rxjs';
 import { secondsToElapsedTime } from '../lib/utils';
 
 
-const MAXHITS = 5;
+const MAXHITS = 10;
 export default class MainScene extends Phaser.Scene {
   private startSceneElement: HTMLDivElement;
   private gameOverElement: HTMLDivElement;
@@ -54,7 +54,7 @@ export default class MainScene extends Phaser.Scene {
     this.player = new Player(this);
 
     this.fpsText = new FpsText(this);
-    this.hitsText = new HitsText(this);
+    this.hitsText = new HitsText(this, MAXHITS);
     this.elapsedTimeText = new ElapsedTimeText(this);
 
     const foreheadTarget = this.player.foreheadTarget;
@@ -69,7 +69,6 @@ export default class MainScene extends Phaser.Scene {
     if(this.ended) {
       return;
     }
-    console.log('endGame called!');
     this.scene.pause();
     this.player.freeze();
 

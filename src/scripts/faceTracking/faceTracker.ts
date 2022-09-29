@@ -184,6 +184,25 @@ export class FaceTracker {
           stache: STACHE_POINTS.map(id => landmarks[id]),
         });
       }
+      if(results.multiFaceLandmarks.length === 0) {
+        this._faceFeatures.next({
+          faceFound: false,
+          forehead: [],
+          jawline: [],
+          chinstrap: [],
+          soulPatch: [],
+          stache: [],
+        });
+      }
+    } else {
+      this._faceFeatures.next({
+        faceFound: false,
+        forehead: [],
+        jawline: [],
+        chinstrap: [],
+        soulPatch: [],
+        stache: []
+      });
     }
 
     // Clean up after ourselves.

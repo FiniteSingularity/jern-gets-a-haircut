@@ -16,7 +16,6 @@ export default class Player extends Phaser.GameObjects.Group {
   private _foreheadTarget: ForeheadTarget;
   private _headHair: HeadHair;
   private _targetShield: TargetShield;
-  private _hitCount = 0;
   private _scoreService = scoreService;
   private _shieldStrength = 0;
 
@@ -83,10 +82,9 @@ export default class Player extends Phaser.GameObjects.Group {
 
   addHit(enenmy: IEnemy) {
     this._scoreService.incrementHit(1);
-    this._headHair.addHair();
-    this._headHair.addHair();
-    this._headHair.addHair();
-    this._headHair.addHair();
+    for(let i=0; i<10; ++i) {
+      this._headHair.addHair();
+    }
   }
 
   update() {

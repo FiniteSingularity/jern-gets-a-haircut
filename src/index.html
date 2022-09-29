@@ -366,6 +366,7 @@
         height: 150px;
         border: 4px solid #FFFFFF;
         border-radius: 6px;
+        z-index: 10600;
       }
 
       .cover {
@@ -495,6 +496,24 @@
       .outcome {
         margin: 32px;
       }
+
+      #game-setup {
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        z-index: 10500;
+        background-color: rgba(0, 0, 0, 0.6);
+        backdrop-filter: grayscale(1) blur(12px);
+        color: #FFFFFF;
+        font-size: 36px;
+      }
+
+      .setup-message-container {
+        margin-left: 350px;
+        margin-top: 100px;
+      }
     </style>
 
     <noscript>Please enable javascript to continue using this application.</noscript>
@@ -566,6 +585,16 @@
         <div class="outcome hide">And The moon king's scientist zips by on an electric unicycle dousing you with synthesized snail pheromone, all hope is lost as you see the power glow emminate from Lasbutuff's fingertips, he places you under a spell of sleep and your hair grows for the rest of eternity or until you are awakened by true loves first kiss.</div>
         <div class="outcome hide">The Moon King looks you over, visibly winces, and offers you an extra large paper bag with eye holes cut out.</div>
         <button onClick="window.location.reload();">Continue</button>
+      </div>
+    </div>
+    <div id="game-setup">
+      <div class="setup-message-container">
+        <p>Jern Gets a Haircut is an interactive Augmented Reality experience! In this game, your face
+           is your controller, but in order for this to work, you need a working webcam.  And a face. To
+           get started, simply allow the browser access to your webcam when asked.  Then (to the left) select
+           a webcam that provides a view of your face.  When this happens, the game should unlock,
+           and you can read the lore (necessary for play) and only after completely reading the lore,
+           click "Start Game" to play.</p>
       </div>
     </div>
     <div class="container">

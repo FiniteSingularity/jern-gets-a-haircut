@@ -1,9 +1,11 @@
+import { Subscription } from "rxjs";
 import { FaceTracker } from "../faceTracking/faceTracker";
 
 export default class StartScreenScene extends Phaser.Scene {
   faceTracker: FaceTracker;
   startButton!: HTMLButtonElement;
   startScreen: HTMLDivElement;
+  subs = new Subscription();
 
   constructor() {
     super({ key: 'StartScreenScene' });
@@ -17,6 +19,14 @@ export default class StartScreenScene extends Phaser.Scene {
     });
     
     this.startScreen = document.getElementById('start-screen') as HTMLDivElement;
+    this.subs.add(this.faceTracker.faceFeatures$.subscribe(faceFeatures => {
+      const ele = document.getElementById('game-setup');
+      if(faceFeatures.faceFound) {
+        ele?.classList.add('hide');
+      } else {
+        ele?.classList.remove('hide');
+      }
+    }));
   }
 
   create() {
@@ -24,6 +34,7 @@ export default class StartScreenScene extends Phaser.Scene {
   }
 
   startGame() {
+    this.subs.unsubscribe();
     this.scene.start('MainScene');
   }
 }
