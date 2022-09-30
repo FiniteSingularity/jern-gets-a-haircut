@@ -6,6 +6,7 @@ import scoreService from '../lib/services/scoreService';
 import Beard from '../sceneObjects/beard';
 import ForeheadTarget from '../sceneObjects/foreheadTarget';
 import HeadHair from '../sceneObjects/headHair';
+import PowerUpTarget from '../sceneObjects/powerUpTarget';
 import TargetShield from '../sceneObjects/targetShield';
 
 export default class Player extends Phaser.GameObjects.Group {
@@ -18,6 +19,8 @@ export default class Player extends Phaser.GameObjects.Group {
   private _targetShield: TargetShield;
   private _scoreService = scoreService;
   private _shieldStrength = 0;
+  private _powerUpTarget: any;
+  private _targetInterval;
 
   constructor(scene) {
     super(scene);
@@ -25,6 +28,8 @@ export default class Player extends Phaser.GameObjects.Group {
     this._foreheadTarget = new ForeheadTarget(scene, 0, 0);
     this._targetShield = new TargetShield(scene, 0, 0);
     this._headHair = new HeadHair(scene, 0, 0);
+    this._powerUpTarget = new PowerUpTarget(scene, 0, 0);
+    this._powerUpTarget.setVisible(false);
 
     this.faceTracker = FaceTracker.getInstance();
     this.faceTracker.setFullScreen();
@@ -39,9 +44,19 @@ export default class Player extends Phaser.GameObjects.Group {
         }
       })
     );
-    setTimeout(() => {
-      this.shieldOn();
-    }, 5000);
+    // setTimeout(() => {
+    //   this.shieldOn();
+    // }, 5000);
+    this._targetInterval = setInterval(() => {
+      const x = Phaser.Math.Between(300, 980);
+      const y = Phaser.Math.Between(100, 360);
+      this._powerUpTarget.setX(x);
+      this._powerUpTarget.setY(y);
+      this._powerUpTarget.setVisible(true);
+      setTimeout(() => {
+        this._powerUpTarget.setVisible(false);
+      }, 5000);
+    }, 10000)
   }
 
   get beard() {
@@ -89,6 +104,7 @@ export default class Player extends Phaser.GameObjects.Group {
 
   update() {
     this._headHair.update();
+    this._powerUpTarget.update();
     this._targetShield.updateShield(this._shieldStrength > 0);
   }
 }
