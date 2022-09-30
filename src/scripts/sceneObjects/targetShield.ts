@@ -23,15 +23,18 @@ export default class TargetShield extends Phaser.GameObjects.Sprite {
       this.setAlpha(0.0);
     } else {
       if (shieldPercentage >= 1) {
+        this.setAlpha(1.0);
         this.setTintFill(0x0000FF);
       } else if (shieldPercentage >= .75) {
         this.setTintFill(0x00FF00);
+        this.setAlpha(.8);
       } else if (shieldPercentage >= .5) {
         this.setTintFill(0xFFFF00);
+        this.setAlpha(.6);
       } else if (shieldPercentage >= .25) {
         this.setTintFill(0xFF0000);
+        this.setAlpha(.4);
       }       
-      this.setAlpha(.8);
     }
   }
 }
