@@ -33,7 +33,7 @@ export default class TargetShield extends Phaser.GameObjects.Sprite {
         this.setAlpha(.6);
       } else if (shieldPercentage >= .25) {
         this.setTintFill(0xFF0000);
-        this.setAlpha(.4);
+        this.setAlpha(.8);  // bumping up for flashing effect
       }       
     }
   }
