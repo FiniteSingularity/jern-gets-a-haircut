@@ -360,10 +360,10 @@
       }
 
       .canvas-container-preview {
-        top: 200px;
+        top: 140px;
         left: 50px;
         width: 250px;
-        height: 150px;
+        height: 140px;
         border: 4px solid #FFFFFF;
         border-radius: 6px;
         z-index: 10600;
@@ -391,7 +391,7 @@
       .control-panel {
         position: absolute;
         left: 15px;
-        top: 50px;
+        top: 20px;
         z-index: 11000;
       }
 
@@ -453,7 +453,7 @@
         bottom: 0;
         z-index: 10001;
         color: #FFFFFF;
-        font-size: 24px;
+        font-size: 22px;
         overflow-y: auto;
       }
       h1 {
@@ -518,9 +518,10 @@
 
       .tall-ad {
         position:absolute;
-        top: 333px;
-        left: 35px;
+        top: 315px;
+        left: 110px;
         cursor: pointer;
+        z-index: 10001;
       }
     </style>
 
@@ -564,6 +565,7 @@
       <p>
          You are now Jern, beard and all!  Your task is to dodge the moon snails for as long as you can.
       </p>
+      <p>This game is sponsored by Amoonzon.  Please click one of the tasteful banner ads to show your support.</p>
       <p>WARNING!!! Competitive Jern Gets a Haircut players risk getting carpal tunnel in the neck from prolonged playtime so new players are advised to play in shorter sprints with breaks</p>
       <p style="font-size:8px">The fin(it)e print: FiniteSingularity can not be held responsible for any Jern Gets a Haircut related injuries, neck or otherwise.</p>
       <div><a href="http://www.amoonzon.com" target="_blank"><img src="./assets/img/moon-snail-ad-wide.png"></a></div>
@@ -583,14 +585,14 @@
         <div class="outcome hide">You've saved the world from the evil grasp of the Moon king, you are awarded a $5 off your next haircut coupon to be redeemd at Amoonzon.com.</div>
         <div class="outcome hide">The moon snails have overcome their desire for the pheromone and notice they are being misused. They have unionized and demanded higher moonimum wage from Lasbatuff, you and the world are safe... For Now</div>
         <div class="outcome hide">The barber stepped out of his shop to hand you the wallet you forget. Unbenounced to all he was wearing Snail By D'ore and the snails were redirected to his scent, escape while you can.</div>
-        <div class="outcome hide">The Moon King's merger with Mooncrasoft comes through, he realizes he now has already taken over the world and leaves. you are left to fend against the snails, but with the target no longer being charged by Lasbutuff, they eventually gobble up the pheromone and lose interest.</div>
+        <div class="outcome hide">The Moon King's merger with Mooncrasoft comes through, he realizes he now has already taken over the world and leaves. you are left to fend against the snails, but with the target no longer being charged by Lasbatuff, they eventually gobble up the pheromone and lose interest.</div>
         <div class="outcome hide">The Moon King realized that, much like the economy, his hairline was in a recession, and relocated to Saturn.</div>
-        <div class="outcome hide">Suddenly a woman's voice calls "Lasbutuff it's time for dinner" You hear him say "But Mom" and she says, "Did you take my pheromone puff?" He yells "No" Grabs the target and runs toward the sound of the woman's voice.</div>
-        <div class="outcome hide">Oh No! There have never been this many snails in one place, the serum is overpowering and the hair becomes sentient, it extricates itself from your skull and attacks Lasbutuff, his plans are foiled, but now... beware the hair.</div>
+        <div class="outcome hide">Suddenly a woman's voice calls "Lasbatuff it's time for dinner" You hear him say "But Mom" and she says, "Did you take my pheromone puff?" He yells "No" Grabs the target and runs toward the sound of the woman's voice.</div>
+        <div class="outcome hide">Oh No! There have never been this many snails in one place, the serum is overpowering and the hair becomes sentient, it extricates itself from your skull and attacks Lasbatuff, his plans are foiled, but now... beware the hair.</div>
         <div class="outcome hide">The Moon King taunts you, "business in the front, party in the back", and you crumble under the glare of the surrounding crowd mocking your new mullet.</div>
-        <div class="outcome hide">You take a step forward to escape, but accidentally step on an incoming snail, you are overcome with grief and then soon after overcome with snail serum, your hair grows so long it covers you and the snail. Lasbutuff is triumphant.</div>
+        <div class="outcome hide">You take a step forward to escape, but accidentally step on an incoming snail, you are overcome with grief and then soon after overcome with snail serum, your hair grows so long it covers you and the snail. Lasbatuff is triumphant.</div>
         <div class="outcome hide">You have an undiagnosed allergy to snails that makes your nose swell, you surrender to The Moon King, pledging to never cut your hair again so that you can forever preserve your handsome countenance.</div>
-        <div class="outcome hide">And The moon king's scientist zips by on an electric unicycle dousing you with synthesized snail pheromone, all hope is lost as you see the power glow emminate from Lasbutuff's fingertips, he places you under a spell of sleep and your hair grows for the rest of eternity or until you are awakened by true loves first kiss.</div>
+        <div class="outcome hide">And The moon king's scientist zips by on an electric unicycle dousing you with synthesized snail pheromone, all hope is lost as you see the power glow emminate from Lasbatuff's fingertips, he places you under a spell of sleep and your hair grows for the rest of eternity or until you are awakened by true loves first kiss.</div>
         <div class="outcome hide">The Moon King looks you over, visibly winces, and offers you an extra large paper bag with eye holes cut out.</div>
         <button onClick="window.location.reload();">Continue</button>
       </div>
@@ -603,6 +605,10 @@
            a webcam that provides a view of your face.  When this happens, the game should unlock,
            and you can read the lore (necessary for play) and only after completely reading the lore,
            click "Start Game" to play.</p>
+        <p>Note- if you are seeing errors that a camera could not be found, either you dont have a webcam :(,
+           or your webcam is in use by another application and it doesn't support being used by multiple apps.
+           In this case, simply discontinue use of the webcam in the offending app, and refresh this page.
+        </p>
       </div>
     </div>
     <div class="container">
@@ -616,8 +622,8 @@
       </div>
     </div>
     <div id="control-panel" class="control-panel">
-      <div class="tall-ad"><a href="http://www.amoonzon.com" target="_blank" class=""><img src="./assets/img/moon-snail-ad-tall.png"></a></div>
     </div>
+    <div id="tall-ad" class="tall-ad"><a href="http://www.amoonzon.com" target="_blank" class=""><img src="./assets/img/moon-snail-ad-tall.png"></a></div>
     <!-- Shield sprite provided by: Bonsaiheldin - https://opengameart.org/content/shield-effect -->
   </body>
 </html>

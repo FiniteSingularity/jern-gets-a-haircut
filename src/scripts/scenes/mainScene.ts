@@ -48,6 +48,7 @@ export default class MainScene extends Phaser.Scene {
 
   create() {
     this.startSceneElement.classList.add('hide');
+    document.getElementById('tall-ad')?.classList.add('hide');
     // @todo inject me
     this.enemySpawner = new EnemySpawner(Enemy.prototype, this);
 
