@@ -18,7 +18,6 @@ export default class Enemy extends Physics.Arcade.Sprite implements IEnemy {
         this.setSize(96, 96);
         this.setDisplaySize(64, 64);
         this.setBounce(3, 3);
-        console.log('Construct Sprite', this);
     }
 
     reset() {

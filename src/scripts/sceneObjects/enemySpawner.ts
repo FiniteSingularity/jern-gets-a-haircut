@@ -2,6 +2,7 @@ import { Math } from "phaser";
 import type { EnemySpawnerConfig } from "../lib/types/enemy";
 import IEnemy from "../lib/interfaces/IEnemy";
 import Enemy from "./enemy";
+import MainScene from "../scenes/mainScene";
 
 
 /**
@@ -57,6 +58,11 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
       this.scene.physics.add.collider(
         newEnemy,
         this.pool.getChildren(),
+        (a, b) => {
+          if(a.body.x > 10 && a.body.y > 10) {
+            (this.scene as MainScene).playCollision();
+          }
+        }
       );
     }
     this.initialized = true;
@@ -91,7 +97,7 @@ export default class EnemySpawner<EnemyType extends IEnemy> extends Phaser.GameO
 
     enemy.setActive(true);
     enemy.setVisible(true);
-    enemy.setInteractive(true);
+    enemy.setInteractive();
 
     return enemy;
   }

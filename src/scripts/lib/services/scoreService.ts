@@ -33,9 +33,7 @@ class ScoreService {
   }
 
   incrementHit(hitCount: number) {
-    console.log(hitCount);
     this.hits += hitCount;
-    console.log(this.hits);
     this._score.next({
       hits: this.hits,
       secondsElapsed: this.secondsElapsed

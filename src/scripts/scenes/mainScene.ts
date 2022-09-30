@@ -33,6 +33,10 @@ export default class MainScene extends Phaser.Scene {
   private spawnChangeTime: number = 10000;
   private scoreService = scoreService;
   private ended = false;
+  private collisionSounds: any[] = [];
+  private shieldBounceSounds: any[] = [];
+  private shieldChargeSounds: any[] = [];
+  private squishSounds: any[] = [];
 
   constructor() {
     super({ key: 'MainScene' });
@@ -47,6 +51,46 @@ export default class MainScene extends Phaser.Scene {
   }
 
   create() {
+    this.loadSounds();
+    this.start();
+  }
+
+  loadSounds() {
+    this.squishSounds = [];
+    for(let i=1; i<=10; i++) {
+      this.squishSounds.push(this.sound.add(`squish_${i}`));
+    }
+    this.collisionSounds = [];
+    for(let i=1; i<=5; i++) {
+      this.collisionSounds.push(this.sound.add(`ricochet_0${i}`));
+    }
+    this.shieldBounceSounds = [];
+    for (let i=1; i<=5; i++) {
+      this.shieldBounceSounds.push(this.sound.add(`shield_bounce_0${i}`));
+    }
+    this.shieldChargeSounds = [];
+    this.shieldChargeSounds.push(this.sound.add('shield_charge'));
+  }
+
+  playSquishSound() {
+    this.squishSounds[
+      Phaser.Math.Between(0, this.squishSounds.length-1)
+    ].play();
+  }
+
+  playShieldBounce() {
+    this.shieldBounceSounds[
+      Phaser.Math.Between(0, this.shieldBounceSounds.length-1)
+    ].play();
+  }
+
+  playCollision() {
+    this.collisionSounds[
+      Phaser.Math.Between(0, this.collisionSounds.length - 1)
+    ].play();
+  }
+
+  start() {
     this.startSceneElement.classList.add('hide');
     document.getElementById('tall-ad')?.classList.add('hide');
     // @todo inject me

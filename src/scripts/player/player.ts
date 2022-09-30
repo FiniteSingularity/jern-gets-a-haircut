@@ -8,6 +8,7 @@ import ForeheadTarget from '../sceneObjects/foreheadTarget';
 import HeadHair from '../sceneObjects/headHair';
 import PowerUpTarget from '../sceneObjects/powerUpTarget';
 import TargetShield from '../sceneObjects/targetShield';
+import MainScene from '../scenes/mainScene';
 
 export default class Player extends Phaser.GameObjects.Group {
   faceTracker: FaceTracker;
@@ -103,6 +104,7 @@ export default class Player extends Phaser.GameObjects.Group {
   }
 
   shieldHit() {
+    (this.scene as MainScene).playShieldBounce();
     this._shieldStrength--;
   }
 
@@ -116,6 +118,7 @@ export default class Player extends Phaser.GameObjects.Group {
 
   addHit(enenmy: IEnemy) {
     this._scoreService.incrementHit(1);
+    (this.scene as MainScene).playSquishSound();
     for(let i=0; i<10; ++i) {
       this._headHair.addHair();
     }
