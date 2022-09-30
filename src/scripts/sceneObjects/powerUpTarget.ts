@@ -1,8 +1,8 @@
 import MainScene from "../scenes/mainScene";
 
-export default class PowerUpTarget extends Phaser.GameObjects.Ellipse {
+export default class PowerUpTarget extends Phaser.GameObjects.Sprite {
   constructor(scene, x, y) {
-    super(scene, x, y, 75, 75, 0xff0000, 0.5);
+    super(scene, x, y, 'shield');
     scene.add.existing(this);
     //scene.physics.add.existing(this)
   }
