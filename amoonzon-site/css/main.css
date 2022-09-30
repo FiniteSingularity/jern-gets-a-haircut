@@ -1,0 +1,42 @@
+html, body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  color: #FFFFFF;
+  background: #000000 url(../img/moonscape.svg) no-repeat center bottom -20vh;
+  background-size: auto 100%;
+}
+
+#container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.logo {
+  width: 50vw;
+}
+
+.no-service {
+  
+  width: 80vw;
+  font-size: 3.5vw;
+  text-align: justify;
+  color: #FF9800
+}
+
+.signature {
+  width: 70%;
+  text-align: right;
+  font-size: 2vw;
+  margin-top: 0px;
+  text-shadow: 0 0 4vw black;
+}

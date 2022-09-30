@@ -22,6 +22,7 @@ export default class Player extends Phaser.GameObjects.Group {
   private _maxShieldStrength = 5;
   private _powerUpTarget: any;
   private _targetInterval;
+  private _powerupTargetActive = false;
 
   constructor(scene) {
     super(scene);
@@ -64,10 +65,11 @@ export default class Player extends Phaser.GameObjects.Group {
       this._powerUpTarget.setX(x);
       this._powerUpTarget.setY(y);
       this._powerUpTarget.setVisible(true);
+      this._powerupTargetActive = true;
       setTimeout(() => {
-        this._powerUpTarget.setVisible(false);
+        this.deactiveatePowerupTarget();
       }, 5000);
-    }, 10000)
+    }, 45000)
   }
 
   get beard() {
@@ -90,8 +92,14 @@ export default class Player extends Phaser.GameObjects.Group {
     return this._shieldStrength > 0;
   }
 
+  deactiveatePowerupTarget() {
+    this._powerupTargetActive = false;
+    this._powerUpTarget.setVisible(false);
+  }
+
   shieldOn() {
     this._shieldStrength = 5;
+    this.deactiveatePowerupTarget();
   }
 
   shieldHit() {
@@ -115,7 +123,9 @@ export default class Player extends Phaser.GameObjects.Group {
 
   update() {
     this._headHair.update();
-    this._powerUpTarget.update();
+    if(this._powerupTargetActive) {
+      this._powerUpTarget.update();
+    }
     this._targetShield.updateShield(this._shieldStrength / this._maxShieldStrength); // Percent of shield remaining
   }
 }
