@@ -19,6 +19,7 @@ export default class Player extends Phaser.GameObjects.Group {
   private _targetShield: TargetShield;
   private _scoreService = scoreService;
   private _shieldStrength = 0;
+  private _maxShieldStrength = 5;
   private _powerUpTarget: any;
   private _targetInterval;
 
@@ -105,6 +106,6 @@ export default class Player extends Phaser.GameObjects.Group {
   update() {
     this._headHair.update();
     this._powerUpTarget.update();
-    this._targetShield.updateShield(this._shieldStrength > 0);
+    this._targetShield.updateShield(this._shieldStrength / this._maxShieldStrength); // Percent of shield remaining
   }
 }
