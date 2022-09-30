@@ -28,10 +28,20 @@ export default class Player extends Phaser.GameObjects.Group {
     this._beard = new Beard(scene);
     this._foreheadTarget = new ForeheadTarget(scene, 0, 0);
     this._targetShield = new TargetShield(scene, 0, 0);
+
+    // this is supposed to pulse the shield constantly, but only works on the last hit. Not sure why
+    scene.tweens.add({
+      targets: this._targetShield,
+      duration: 250,
+      ease: 'Linear',
+      yoyo: true,
+      repeat: -1,
+      alpha: { start: 1, from: 1, to: 0.5}
+    });
+    
     this._headHair = new HeadHair(scene, 0, 0);
     this._powerUpTarget = new PowerUpTarget(scene, 0, 0);
     this._powerUpTarget.setVisible(false);
-
     this.faceTracker = FaceTracker.getInstance();
     this.faceTracker.setFullScreen();
     this.subs.add(
